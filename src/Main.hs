@@ -2,10 +2,13 @@ import Data.List.Split
 import Data.Maybe
 import Data.Foldable
 import Text.Printf
+import Control.Monad
+import Lib
 import System.Process
 import qualified Data.Map as M
 import qualified Data.ByteString.Builder as BS
 import qualified Data.ByteString.Lazy as BS
+
 
 sampleRate :: Float
 sampleRate = 44100.0 
@@ -52,8 +55,6 @@ save musicNotes pathToFile = BS.writeFile pathToFile $ BS.toLazyByteString $ fol
 
 main :: IO ()
 main = do
-  inputNotes <- getLine
-  let chosenNotes = if inputNotes == "" then sampleNotes else inputNotes
+  chosenNotes <- getLineOrDefault sampleNotes
   save chosenNotes outputPath
-  _ <- runCommand $ printf "ffplay -autoexit -f f32le %s" outputPath
-  return ()
+  void $ callProcess "ffplay" ["-autoexit", "-f", "f32le", outputPath]
