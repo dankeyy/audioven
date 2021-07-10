@@ -3,8 +3,8 @@ This is a dead simple implementation of an audio maker in haskell.
 What it does is basically:
 take your chords ->
 create a list of corresponding frequencies -> 
-pass those one after another to the wave function `g(f) = A sin(2πft)` and get a list of lists, each describing a sin wave cycling some f (frequency) times over some x seconds ->
-after that it's a matter of concatinating it and converting it to a bytestring (easiest approach) we could write off to some file and later play.
+pass those one by one to the wave function `g(f) = A sin(2πft)` to get a list of lists, each describing a sin wave cycling some f (frequency) times over some x seconds ->
+after that it's a matter of concatenating and converting it to a bytestring (easiest approach) we could then write off to some file and later play.
 
 ## prerequisites:
 Make sure you have GHC for compiling & ffmpeg (ffplay) to actually play the music.
