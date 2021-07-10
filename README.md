@@ -7,9 +7,6 @@ pass those one after another to the wave function `g(f) = A sin(2πft)` and get 
 after that it's a matter of concatinating it and converting it to a bytestring (easiest approach) we could write off to some file and later play.
 
 ## prerequisites:
-GHC for compiling & ffmpeg for using ffplay to actually play the audio.
+Make sure you have GHC for compiling & ffmpeg (ffplay) to actually play the music.
 
-Though eventually I just embedded the shell command into the code so just compile, run and it'll begin playing.
-
-## TODO
-For now it just plays twinkle twinkle little star so make it actually take chords from the user and not just play the sample notes.
+Though eventually I just embedded the shell command into the code, so just compile, run, enter notes if you want else just press Enter and it'll play either your notes or twinkle twinkle little star as default.
