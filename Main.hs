@@ -33,8 +33,8 @@ wave freq duration = (* amplitude) . sin . (*(2.0 * pi * freq)) <$> time
 
 
 -- noteFreq = baseFreq * 2^(n/12)
-notes :: M.Map String Float
-notes = M.fromList $ ("", 0.0) : zip octaves noteFreqs
+notesToFrequencies :: M.Map String Float
+notesToFrequencies = M.fromList $ ("", 0.0) : zip octaves noteFreqs
   where
     octaves = ["C", "c", "D", "d", "E", "F", "f", "G", "g", "A", "a", "B"]
     baseFreq = 261.63
@@ -43,15 +43,17 @@ notes = M.fromList $ ("", 0.0) : zip octaves noteFreqs
 
 dataFrom :: String -> [Float]
 dataFrom musicNotes = concatMap (`wave` duration) frequencies
-  where frequencies = mapMaybe (`M.lookup` notes) (splitOn "-" musicNotes)
+  where frequencies = mapMaybe (`M.lookup` notesToFrequencies) (splitOn "-" musicNotes)
 
 
-save :: FilePath -> IO ()
-save pathToFile = BS.writeFile pathToFile $ BS.toLazyByteString $ foldMap BS.floatLE (dataFrom sampleNotes)
+save :: String -> FilePath -> IO ()
+save musicNotes pathToFile = BS.writeFile pathToFile $ BS.toLazyByteString $ foldMap BS.floatLE $ dataFrom musicNotes
 
 
 main :: IO ()
-main = do 
-  save outputPath
+main = do
+  inputNotes <- getLine
+  let chosenNotes = if inputNotes == "" then sampleNotes else inputNotes
+  save chosenNotes outputPath
   _ <- runCommand $ printf "ffplay -autoexit -f f32le %s" outputPath
   return ()
