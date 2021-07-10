@@ -1,14 +1,13 @@
-import Data.List.Split
-import Data.Maybe
-import Data.Foldable
-import Text.Printf
-import Control.Monad
+
 import Lib
+import Data.Maybe
+import Control.Monad
+import Data.Foldable
+import Data.List.Split
 import System.Process
 import qualified Data.Map as M
 import qualified Data.ByteString.Builder as BS
 import qualified Data.ByteString.Lazy as BS
-
 
 sampleRate :: Float
 sampleRate = 44100.0 
