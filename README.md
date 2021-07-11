@@ -1,4 +1,4 @@
-# Musically
+# Audioven
 This is a dead simple implementation of an audio maker in haskell. What it does is basically this:
 
 -> Take your chords.
