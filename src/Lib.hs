@@ -1,4 +1,4 @@
-module Lib where
+module Lib ( getLineOrDefault ) where
 
 getLineOrDefault :: String -> IO String
 getLineOrDefault defaultValue = 

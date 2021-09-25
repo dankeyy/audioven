@@ -1,13 +1,13 @@
+module Main where
 
-import Lib
-import Data.Maybe
-import Control.Monad
-import Data.Foldable
-import Data.List.Split
-import System.Process
+import Lib ( getLineOrDefault )
+import Data.Maybe ( mapMaybe )
+import Control.Monad ( void )
+import Data.List.Split ( splitOn )
+import System.Process ( callProcess )
 import qualified Data.Map as M
-import qualified Data.ByteString.Builder as BS
-import qualified Data.ByteString.Lazy as BS
+import qualified Data.ByteString.Builder as BSB
+import qualified Data.ByteString.Lazy as BSL
 
 sampleRate :: Float
 sampleRate = 44100.0 
@@ -49,7 +49,7 @@ dataFrom musicNotes = concatMap (`wave` duration) frequencies
 
 
 save :: String -> FilePath -> IO ()
-save musicNotes pathToFile = BS.writeFile pathToFile $ BS.toLazyByteString $ foldMap BS.floatLE $ dataFrom musicNotes
+save musicNotes pathToFile = BSL.writeFile pathToFile $ BSB.toLazyByteString $ foldMap BSB.floatLE $ dataFrom musicNotes
 
 
 main :: IO ()
